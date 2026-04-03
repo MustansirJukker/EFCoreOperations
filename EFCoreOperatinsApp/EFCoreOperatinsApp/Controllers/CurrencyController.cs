@@ -22,5 +22,49 @@ namespace EFCoreOperatinsApp.Controllers
             var currencies = await _appDbContext.Currencies.ToListAsync();
             return Ok(currencies);
         }
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> GetCurrencybyIdAsync([FromRoute] int id)
+        {
+            var currencies = await _appDbContext.Currencies.FindAsync(id);
+            return Ok(currencies);
+        }
+
+        /*[HttpGet("{name}")]
+        public async Task<IActionResult> GetCurrencybyNameAsync([FromRoute] string name)
+        {
+            var currencies = await _appDbContext.Currencies.FirstOrDefaultAsync(x => name.Equals(x.Title));
+            currencies = await _appDbContext.Currencies.FirstAsync(x => name.Equals(x.Title));
+            currencies = await _appDbContext.Currencies.SingleOrDefaultAsync(x => name.Equals(x.Title));
+            currencies = await _appDbContext.Currencies.SingleAsync(x => name.Equals(x.Title));
+            return Ok(currencies);
+        }*/
+
+        [HttpGet("{name}")]
+        public async Task<IActionResult> GetCurrencybyNameAsync([FromRoute] string name, [FromQuery] string? desc)
+        {
+            /*//To get single record
+            var currencies = await _appDbContext.Currencies.FirstOrDefaultAsync(
+                x => name.Equals(x.Title)
+                && string.IsNullOrWhiteSpace(desc) || desc.Equals(x.Description)
+            );*/
+
+            var currencies = await _appDbContext.Currencies.Where(
+                x => name.Equals(x.Title)
+                && string.IsNullOrWhiteSpace(desc) || desc.Equals(x.Description)
+            ).ToListAsync();
+
+            return Ok(currencies);
+        }
+
+        [HttpPost("FromList")]
+        public async Task<IActionResult> GetCurrencyFromListAsync([FromBody] List<int> ids)
+        {
+            var currencies = await _appDbContext.Currencies.Where(
+                x => ids.Contains(x.Id)
+            ).ToListAsync();
+
+            return Ok(currencies);
+        }
     }
 }
