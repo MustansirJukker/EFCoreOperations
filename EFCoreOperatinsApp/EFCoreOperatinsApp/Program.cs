@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<AppDbContext>(
-    options => options.UseSqlServer(builder.Configuration.GetConnectionString("AppDb"))
+    options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("AppDb")).LogTo(Console.WriteLine)
 );
 // Add services to the container.
 

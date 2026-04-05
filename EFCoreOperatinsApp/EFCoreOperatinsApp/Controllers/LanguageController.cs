@@ -19,9 +19,17 @@ namespace EFCoreOperatinsApp.Controllers
         [HttpGet("")]
         public async Task<IActionResult> GetAllLanguages()
         {
-            var currencies = await (from languages in _appDbContext.Currencies
+            var Languages = await (from languages in _appDbContext.Languages
                               select languages).ToListAsync();
-            return Ok(currencies);
+
+            // Explicit loading
+            /*foreach(var language in Languages)
+            {
+                await _appDbContext.Entry(language).Collection(x => x.Books).LoadAsync();
+
+            }*/
+
+            return Ok(Languages);
         }
     }
 }

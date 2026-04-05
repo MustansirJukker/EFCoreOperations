@@ -19,7 +19,7 @@ namespace EFCoreOperatinsApp.Controllers
         [HttpGet("")]
         public async Task<IActionResult> GetAllCurrencies()
         {
-            var currencies = await _appDbContext.Currencies.ToListAsync();
+            var currencies = await _appDbContext.Currencies.AsNoTracking().ToListAsync();
             return Ok(currencies);
         }
 
@@ -52,7 +52,7 @@ namespace EFCoreOperatinsApp.Controllers
             var currencies = await _appDbContext.Currencies.Where(
                 x => name.Equals(x.Title)
                 && string.IsNullOrWhiteSpace(desc) || desc.Equals(x.Description)
-            ).ToListAsync();
+            ).AsNoTracking().ToListAsync();
 
             return Ok(currencies);
         }
@@ -62,7 +62,7 @@ namespace EFCoreOperatinsApp.Controllers
         {
             var currencies = await _appDbContext.Currencies.Where(
                 x => ids.Contains(x.Id)
-            ).ToListAsync();
+            ).AsNoTracking().ToListAsync();
 
             return Ok(currencies);
         }

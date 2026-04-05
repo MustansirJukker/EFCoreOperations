@@ -38,6 +38,7 @@ namespace EFCoreOperatinsApp.Data
         }
 
         public DbSet<Book> Books { get; set; }
+        public DbSet<Author> Authors { get; set; }
         public DbSet<BookPrice> BookPrices { get; set; }
         public DbSet<Language> Languages { get; set; }
         public DbSet<Currency> Currencies { get; set; }

@@ -7,7 +7,7 @@
         public double Amount { get; set; }
         public int CurrencyId { get; set; }
         
-        public Book Book { get; set; }
-        public Currency CurrencyType { get; set; }
+        public virtual Book Book { get; set; }
+        public virtual Currency CurrencyType { get; set; }
     }
 }

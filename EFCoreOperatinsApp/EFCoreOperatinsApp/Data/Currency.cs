@@ -6,6 +6,6 @@
         public string Title { get; set; }
         public string? Description { get; set; }
         
-        public ICollection<BookPrice> BookPrice { get; set; }
+        public virtual ICollection<BookPrice> BookPrice { get; set; }
     }
 }
